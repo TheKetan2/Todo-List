@@ -1,7 +1,7 @@
 import React, {Suspense, lazy} from 'react';
 import './App.css'
 
-const Todo = lazy(() => import('./Todos/Todo'));
+const Todo = lazy(() => import('./Todos/Index'));
 
 function App() {
   return (
