@@ -9,31 +9,31 @@ function Todo() {
     const [todos, setTodos] = React.useState([]);
     const [msg, setMsg] = React.useState('');
     const [editItem, setEditItem] = React.useState();
+    const [edit, setEdit] = React.useState(false);
     const [currentTodo, setCurrentTodo] = React.useState('');
     const uId= nextId('todo-');
     
 //handle todos value
     const handleTodos = (value) => {
 
-        if(editItem){            
-            let todoArr = todos.map(todo =>{
-                if(todo.id==editItem.id){
-                    todo.id= editItem.id;
-                    todo.value = value;
-                }
-                return todo;
-            });            
-            setTodos(todoArr); 
+        let newTodo = {            
+            id:editItem ? editItem.id : uId,
+            value:value
+        }
+        
+        let todoArr = [];
+        if(edit){            
+            todoArr = todos.map(todo =>{
+                return todo.id==editItem.id ? newTodo : todo
+            });
             setEditItem('');
+            setEdit(false);
         }
         else{
-            let newTodo = {
-                id:uId,
-                value:value
-            }
-        let tempArr = [...todos, newTodo];
-        value && value.trim()  && setTodos(tempArr);
+            todoArr = [...todos, newTodo];
     }
+    
+    value && value.trim() && setTodos(todoArr); 
 }
 
 // delete todo
@@ -48,6 +48,7 @@ function Todo() {
 // edit todo
     const handleEdit = (id ) => {
         let item = todos.find(todo => todo.id==id);
+        setEdit(true);
         setEditItem(item);
         setCurrentTodo(item.value);
     }
@@ -63,6 +64,7 @@ function Todo() {
             
             {/* INPUT TODOS */}
             <InputTodos 
+            edit={edit}
             todo={currentTodo} 
             handleChangeCurrent={setCurrentTodo}  
             handleChangeTodo={handleTodos} />
