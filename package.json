@@ -13,7 +13,7 @@
     "react-id-generator": "^3.0.1",
     "react-scripts": "4.0.1",
     "web-vitals": "^0.2.4",
-    "homepage": "http://yuribenjamin.github.io/my-app"
+    "homepage": "https://kinza98.github.io/Todo-List"
   },
   "scripts": {
     "start": "react-scripts start",
